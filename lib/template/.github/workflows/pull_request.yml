@@ -1,0 +1,43 @@
+name: PR Plan
+
+on:
+  - pull_request
+
+jobs:
+  plan:
+    name: Terraspace
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      TS_ENV: dev
+      TERRASPACE_TOKEN: ${{ secrets.TERRASPACE_TOKEN }}
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"
+
+      - name: Install Terraspace
+        run: |
+          brew install tfenv
+          tfenv install latest
+          tfenv use latest
+          bundle install
+          bundle exec terraspace --version
+          terraform --version
+
+      - name: Plan
+        run: |
+          bundle exec terraspace plan demo
