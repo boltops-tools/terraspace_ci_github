@@ -4,6 +4,7 @@ require "terraspace_ci_github/autoloader"
 TerraspaceCiGithub::Autoloader.setup
 
 require "json"
+require "memoist"
 
 module TerraspaceCiGithub
   class Error < StandardError; end

@@ -1,18 +1,27 @@
 module TerraspaceCiGithub
-  class Ci
+  class Ci < Base
     # Interface method. Hash of properties to store
     def vars
       {
-        branch_name: branch_name,
+        branch_name: branch_name, # using
         build_id: build_id,
         build_number: ENV['GITHUB_RUN_NUMBER'],
-        build_system: "github",
-        build_type: build_type,
+        build_system: "github",   # using
+        build_type: build_type,   # using
         build_url: build_url,
-        # commit_message: ENV['XXX'],
-        pr_number: pr_number,
-        sha: sha,
+        commit_message: commit_message,
+        full_repo: full_repo,     # using
+        pr_number: pr_number,     # using
+        sha: sha,                 # using
       }
+    end
+
+    # https://github.com/octokit/octokit.rb/blob/4-stable/lib/octokit/client/commits.rb#L150
+    # https://docs.github.com/en/rest/commits/commits#get-a-commit
+    def commit_message
+      return unless github_token?
+      resp = client.commit(full_repo, sha)
+      resp['commit']['message']
     end
 
     def build_id
@@ -20,7 +29,6 @@ module TerraspaceCiGithub
     end
 
     def build_url
-      # TODO: get right build_id using api
       "https://github.com/#{full_repo}/actions/runs/#{build_id}"
     end
 

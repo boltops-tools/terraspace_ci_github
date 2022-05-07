@@ -1,7 +1,5 @@
-require "octokit"
-
 module TerraspaceCiGithub
-  class Pr
+  class Pr < Base
     def comment(url)
       return unless ENV['GITHUB_EVENT_NAME'] == 'pull_request'
       return unless github_token?
@@ -27,19 +25,6 @@ module TerraspaceCiGithub
         client.update_comment(repo, found_comment.id, body) unless found_comment.body == body
       else
         client.add_comment(repo, number, body)
-      end
-    end
-
-    def client
-      @client ||= Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
-    end
-
-    def github_token?
-      if ENV['GITHUB_TOKEN']
-        true
-      else
-        puts "WARN: The env var GITHUB_TOKEN is not configured. Will not post PR comment"
-        false
       end
     end
   end
