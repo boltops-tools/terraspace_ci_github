@@ -3,17 +3,45 @@ module TerraspaceCiGithub
     # Hash of properties to store
     def data
       {
+        build_system: "github",   # required
+        full_repo: full_repo,     # required
         branch_name: branch_name, # using
+        commit_url: commit_url,
+        branch_url: branch_url,
+        pr_url: pr_url,
+        build_url: build_url,
+        # additional properties
+        build_type: build_type,   # IE: pull_request or push
+        commit_message: commit_message,
         build_id: build_id,
         build_number: ENV['GITHUB_RUN_NUMBER'],
-        build_system: "github",   # using
-        build_type: build_type,   # using
-        build_url: build_url,
-        commit_message: commit_message,
-        full_repo: full_repo,     # using
-        pr_number: pr_number,     # using
+        pr_number: pr['number'],  # using
         sha: sha,                 # using
       }
+    end
+
+    def commit_url
+      "#{domain}/#{full_repo}/commit/#{sha}"
+    end
+
+    def branch_url
+      "#{domain}/#{full_repo}/tree/#{branch_name}"
+    end
+
+    def pr_url
+      "#{domain}/#{full_repo}/pull/#{pr['number']}" if pr
+    end
+
+    def build_url
+      "#{domain}/#{full_repo}/actions/runs/#{build_id}"
+    end
+
+    def domain
+      ENV['GITHUB_DOMAIN'] || 'https://github.com'
+    end
+
+    def build_id
+      ENV['GITHUB_RUN_ID']
     end
 
     # https://github.com/octokit/octokit.rb/blob/4-stable/lib/octokit/client/commits.rb#L150
@@ -22,14 +50,6 @@ module TerraspaceCiGithub
       return unless github_token?
       resp = client.commit(full_repo, sha)
       resp['commit']['message']
-    end
-
-    def build_id
-      ENV['GITHUB_RUN_ID']
-    end
-
-    def build_url
-      "https://github.com/#{full_repo}/actions/runs/#{build_id}"
     end
 
     def full_repo
@@ -60,10 +80,6 @@ module TerraspaceCiGithub
     def pr
       return {} unless ENV['GITHUB_EVENT_PATH']
       JSON.load(IO.read(ENV['GITHUB_EVENT_PATH']))
-    end
-
-    def pr_number
-      pr['number']
     end
   end
 end
