@@ -19,7 +19,7 @@ module TerraspaceCiGithub
     # https://github.com/octokit/octokit.rb/blob/4-stable/lib/octokit/client/commits.rb#L150
     # https://docs.github.com/en/rest/commits/commits#get-a-commit
     def commit_message
-      return unless github_token?
+      # return unless github_token?
       resp = client.commit(full_repo, sha)
       resp['commit']['message']
     end
