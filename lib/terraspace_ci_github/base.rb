@@ -5,15 +5,15 @@ module TerraspaceCiGithub
     extend Memoist
 
     def client
-      Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+      Octokit::Client.new(access_token: ENV['GH_TOKEN'])
     end
     memoize :client
 
     def github_token?
-      if ENV['GITHUB_TOKEN']
+      if ENV['GH_TOKEN']
         true
       else
-        puts "WARN: The env var GITHUB_TOKEN is not configured. Will not post PR comment"
+        puts "WARN: The env var GH_TOKEN is not configured. Will not post PR comment"
         false
       end
     end

@@ -2,7 +2,7 @@ module TerraspaceCiGithub
   class Pr < Base
     def comment(url)
       return unless ENV['GITHUB_EVENT_NAME'] == 'pull_request'
-      # return unless github_token?
+      return unless github_token?
 
       repo = ENV['GITHUB_REPOSITORY'] # org/repo
       number = ENV['GITHUB_REF_NAME'].split('/').first # IE: 2/merge
