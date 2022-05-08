@@ -2,7 +2,7 @@ module TerraspaceCiGithub
   class Interface
     # required interface
     def vars
-      Ci.new.vars
+      Vars.new.data
     end
 
     # optional interface

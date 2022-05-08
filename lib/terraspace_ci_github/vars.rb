@@ -1,7 +1,7 @@
 module TerraspaceCiGithub
-  class Ci < Base
-    # Interface method. Hash of properties to store
-    def vars
+  class Vars < Base
+    # Hash of properties to store
+    def data
       {
         branch_name: branch_name, # using
         build_id: build_id,
