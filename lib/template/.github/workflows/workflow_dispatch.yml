@@ -1,8 +1,16 @@
-name: Pull Request Plan
-
+name: Dispatch Terraspace
 on:
-  - pull_request
-
+  workflow_dispatch:
+    inputs:
+      env:
+        description: "TS_ENV"
+        type: choice
+        options: # Add more environment if needed
+          - dev
+          - prod
+      command:
+        description: "Terraspace command to run"
+        default: "plan demo"
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -13,7 +21,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       TS_API: ${{ secrets.TS_API }}
-      TS_ENV: dev
+      TS_ENV: ${{ github.event.inputs.env }}
       TS_TOKEN: ${{ secrets.TS_TOKEN }}
 
     steps:
@@ -41,5 +49,4 @@ jobs:
 
     - name: Terraspace Command
       run: |
-        terraspace plan demo
-        # terraspace up all -y # another example
+        terraspace ${{ github.event.inputs.command }} -y

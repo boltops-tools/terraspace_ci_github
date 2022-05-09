@@ -4,19 +4,21 @@ module TerraspaceCiGithub
     def data
       {
         build_system: "github",   # required
-        full_repo: full_repo,     # required
-        branch_name: branch_name, # using
+        full_repo: full_repo,
+        branch_name: branch_name,
+        # urls
         commit_url: commit_url,
         branch_url: branch_url,
         pr_url: pr_url,
         build_url: build_url,
         # additional properties
-        build_type: build_type,   # IE: pull_request or push
+        build_type: build_type,   # required IE: pull_request or push
+        pr_number: pr['number'],  # set when build_type=pull_request
+        sha: sha,
+        # additional properties
         commit_message: commit_message,
         build_id: build_id,
         build_number: ENV['GITHUB_RUN_NUMBER'],
-        pr_number: pr['number'],  # using
-        sha: sha,                 # using
       }
     end
 

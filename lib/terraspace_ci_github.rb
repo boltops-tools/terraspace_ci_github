@@ -13,6 +13,5 @@ end
 Terraspace::Cloud::Ci.register(
   name: "github",
   env_key: "GITHUB_ACTIONS",
-  interface_class: TerraspaceCiGithub::Interface,
-  template_root: File.expand_path("#{__dir__}/template"),
+  root: __dir__,
 )

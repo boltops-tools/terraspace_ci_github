@@ -1,7 +1,9 @@
-name: Pull Request Plan
-
+name: Push Up
 on:
-  - pull_request
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
   run:
@@ -41,5 +43,4 @@ jobs:
 
     - name: Terraspace Command
       run: |
-        terraspace plan demo
-        # terraspace up all -y # another example
+        terraspace up demo -y
