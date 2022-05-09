@@ -1,0 +1,23 @@
+name: Pull Request Plan
+
+on:
+  - pull_request
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    env:
+<%= partial "env.yml" -%>
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      TS_API: ${{ secrets.TS_API }}
+      TS_ENV: dev
+      TS_TOKEN: ${{ secrets.TS_TOKEN }}
+
+    steps:
+<%= partial "init_steps.yml" -%>
+
+    - name: Terraspace Command
+      run: |
+        terraspace plan demo
+        # terraspace up all -y # another example

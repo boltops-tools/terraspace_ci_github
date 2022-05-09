@@ -1,0 +1,30 @@
+name: Dispatch Terraspace
+on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: "TS_ENV"
+        type: choice
+        options: # Add more environment if needed
+          - dev
+          - prod
+      command:
+        description: "Terraspace command to run"
+        default: "plan demo"
+jobs:
+  run:
+    runs-on: ubuntu-latest
+
+    env:
+<%= partial "env.yml" -%>
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      TS_API: ${{ secrets.TS_API }}
+      TS_ENV: ${{ github.event.inputs.env }}
+      TS_TOKEN: ${{ secrets.TS_TOKEN }}
+
+    steps:
+<%= partial "init_steps.yml" -%>
+
+    - name: Terraspace Command
+      run: |
+        terraspace ${{ github.event.inputs.command }} -y
