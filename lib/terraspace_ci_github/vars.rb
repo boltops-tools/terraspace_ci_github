@@ -38,10 +38,6 @@ module TerraspaceCiGithub
       "#{domain}/#{full_repo}/actions/runs/#{build_id}"
     end
 
-    def domain
-      ENV['GITHUB_DOMAIN'] || 'https://github.com'
-    end
-
     def build_id
       ENV['GITHUB_RUN_ID']
     end
@@ -82,6 +78,10 @@ module TerraspaceCiGithub
     def pr
       return {} unless ENV['GITHUB_EVENT_PATH']
       JSON.load(IO.read(ENV['GITHUB_EVENT_PATH']))
+    end
+
+    def domain
+      ENV['GITHUB_DOMAIN'] || 'https://github.com'
     end
   end
 end

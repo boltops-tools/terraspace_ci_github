@@ -16,9 +16,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-<%= partial "env.yml" -%>
+<%= cloud_env_vars(indent: 6) -%>
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      TS_API: ${{ secrets.TS_API }}
       TS_ENV: ${{ github.event.inputs.env }}
       TS_TOKEN: ${{ secrets.TS_TOKEN }}
 

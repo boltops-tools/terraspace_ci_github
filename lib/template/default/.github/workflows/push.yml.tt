@@ -1,16 +1,17 @@
-name: Pull Request Plan
-
+name: Push Up
 on:
-  - pull_request
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
   run:
     runs-on: ubuntu-latest
 
     env:
-<%= partial "env.yml" -%>
+<%= cloud_env_vars(indent: 6) -%>
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      TS_API: ${{ secrets.TS_API }}
       TS_ENV: dev
       TS_TOKEN: ${{ secrets.TS_TOKEN }}
 
@@ -19,5 +20,4 @@ jobs:
 
     - name: Terraspace Command
       run: |
-        terraspace plan demo
-        # terraspace up all -y # another example
+        terraspace up demo -y
