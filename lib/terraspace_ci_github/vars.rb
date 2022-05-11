@@ -23,19 +23,19 @@ module TerraspaceCiGithub
     end
 
     def commit_url
-      "#{domain}/#{full_repo}/commit/#{sha}"
+      "#{host}/#{full_repo}/commit/#{sha}"
     end
 
     def branch_url
-      "#{domain}/#{full_repo}/tree/#{branch_name}"
+      "#{host}/#{full_repo}/tree/#{branch_name}"
     end
 
     def pr_url
-      "#{domain}/#{full_repo}/pull/#{pr['number']}" if pr
+      "#{host}/#{full_repo}/pull/#{pr['number']}" if pr
     end
 
     def build_url
-      "#{domain}/#{full_repo}/actions/runs/#{build_id}"
+      "#{host}/#{full_repo}/actions/runs/#{build_id}"
     end
 
     def build_id
@@ -80,8 +80,8 @@ module TerraspaceCiGithub
       JSON.load(IO.read(ENV['GITHUB_EVENT_PATH']))
     end
 
-    def domain
-      ENV['GITHUB_DOMAIN'] || 'https://github.com'
+    def host
+      ENV['GITHUB_HOST'] || 'https://github.com'
     end
   end
 end
