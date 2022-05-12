@@ -5,6 +5,7 @@ on:
       env:
         description: "TS_ENV"
         type: choice
+        default: prod
         options: # Add more environment if needed
           - dev
           - prod

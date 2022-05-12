@@ -1,5 +1,11 @@
 # terraspace_ci_github
 
+[![Gem Version](https://badge.fury.io/rb/terraspace.png)](http://badge.fury.io/rb/terraspace)
+
+[![BoltOps Badge](https://img.boltops.com/boltops/badges/boltops-badge.png)](https://www.boltops.com)
+
+[![BoltOps Learn Badge](https://img.boltops.com/boltops-learn/boltops-learn.png)](https://learn.boltops.com)
+
 Provides GitHub Actions CI support.
 
 ## Installation

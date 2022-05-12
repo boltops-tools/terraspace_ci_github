@@ -14,4 +14,5 @@ Terraspace::Cloud::Ci.register(
   name: "github",
   env_key: "GITHUB_ACTIONS",
   root: __dir__,
+  exe: ".github/bin",
 )
