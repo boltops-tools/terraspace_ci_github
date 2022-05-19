@@ -4,11 +4,10 @@ module TerraspaceCiGithub
     def data
       {
         build_system: "github",   # required
+        host: host,
         full_repo: full_repo,
         branch_name: branch_name,
         # urls
-        commit_url: commit_url,
-        branch_url: branch_url,
         pr_url: pr_url,
         build_url: build_url,
         # additional properties
@@ -22,12 +21,8 @@ module TerraspaceCiGithub
       }
     end
 
-    def commit_url
-      "#{host}/#{full_repo}/commit/#{sha}"
-    end
-
-    def branch_url
-      "#{host}/#{full_repo}/tree/#{branch_name}"
+    def host
+      ENV['GITHUB_SERVER_URL'] || 'https://github.com'
     end
 
     def pr_url
@@ -78,10 +73,6 @@ module TerraspaceCiGithub
     def pr
       return {} unless ENV['GITHUB_EVENT_PATH']
       JSON.load(IO.read(ENV['GITHUB_EVENT_PATH']))
-    end
-
-    def host
-      ENV['GITHUB_HOST'] || 'https://github.com'
     end
   end
 end
