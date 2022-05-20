@@ -26,7 +26,7 @@ module TerraspaceCiGithub
     end
 
     def pr_url
-      "#{host}/#{full_repo}/pull/#{pr['number']}" if pr
+      "#{host}/#{full_repo}/pull/#{pr['number']}" unless pr.empty?
     end
 
     def build_url
