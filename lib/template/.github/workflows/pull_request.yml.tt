@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-<%= cloud_env_vars(indent: 6) -%>
+<%= plugin_env_vars(indent: 6) -%>
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
       TS_ENV: dev
       TS_TOKEN: ${{ secrets.TS_TOKEN }}
