@@ -10,6 +10,7 @@ module TerraspaceCiGithub
   class Error < StandardError; end
 end
 
+require "terraspace"
 Terraspace::Cloud::Ci.register(
   name: "github",
   env_key: "GITHUB_ACTIONS",
