@@ -43,6 +43,8 @@ module TerraspaceCiGithub
       return unless github_token?
       resp = client.commit(full_repo, sha)
       resp['commit']['message']
+    rescue Octokit::Unauthorized => e
+      puts "WARN: #{e.message}. Error getting commit message. Please double check your github token"
     end
 
     def full_repo

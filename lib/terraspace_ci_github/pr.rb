@@ -26,6 +26,8 @@ module TerraspaceCiGithub
       else
         client.add_comment(repo, number, body)
       end
+    rescue Octokit::Unauthorized => e
+      puts "WARN: #{e.message}. Unable to create pull request comment. Please double check your github token"
     end
   end
 end
