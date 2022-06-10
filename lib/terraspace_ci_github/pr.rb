@@ -13,10 +13,6 @@ module TerraspaceCiGithub
       puts "Adding comment to repo #{repo} number #{number}"
 
       comments = client.issue_comments(repo, number)
-      # TODO: handle not found. Examples:
-      # token is not valid
-      # token is not right repo
-      # todo are we allow to post comment on public repo without need the permission?
       found_comment = comments.find do |comment|
         comment.body.starts_with?(marker)
       end
