@@ -1,0 +1,8 @@
+#!/bin/bash
+brew install tfenv
+tfenv install latest
+tfenv use latest
+terraform --version
+bundle install
+bundle exec terraspace new shim
+terraspace --version
