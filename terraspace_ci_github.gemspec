@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "faraday-retry"
   spec.add_dependency "memoist"
   spec.add_dependency "octokit"
   spec.add_dependency "zeitwerk"

@@ -1,3 +1,5 @@
+require "faraday"
+require "faraday/retry"
 require "octokit"
 
 module TerraspaceCiGithub
