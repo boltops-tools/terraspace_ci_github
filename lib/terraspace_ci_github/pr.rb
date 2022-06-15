@@ -1,11 +1,11 @@
 module TerraspaceCiGithub
   class Pr < Base
     def comment(url)
-      return unless ENV['GITHUB_EVENT_NAME'] == 'pull_request'
+      return unless pull_request_available?
       return unless github_token?
 
       repo = ENV['GITHUB_REPOSITORY'] # org/repo
-      number = ENV['GITHUB_REF_NAME'].split('/').first # IE: 2/merge
+      number = pr_number
       marker = "<!-- terraspace marker -->"
       body = marker + "\n"
       body << "Terraspace Cloud Url #{url}"
@@ -24,6 +24,18 @@ module TerraspaceCiGithub
       end
     rescue Octokit::Unauthorized => e
       puts "WARN: #{e.message}. Unable to create pull request comment. Please double check your github token"
+    end
+
+    def pull_request_available?
+      !!pr_number
+    end
+
+    def pr_number
+      if ENV['GITHUB_EVENT_NAME'] == 'pull_request'
+        ENV['GITHUB_REF_NAME'].split('/').first # IE: 2/merge
+      else
+        Vars.new.pr_number
+      end
     end
   end
 end

@@ -12,7 +12,7 @@ module TerraspaceCiGithub
         build_url: build_url,
         # additional properties
         build_type: build_type,   # required IE: pull_request or push
-        pr_number: pr['number'],  # set when build_type=pull_request
+        pr_number: pr_number,  # set when build_type=pull_request
         sha: sha,
         # additional properties
         commit_message: commit_message,
@@ -25,8 +25,27 @@ module TerraspaceCiGithub
       ENV['GITHUB_SERVER_URL'] || 'https://github.com'
     end
 
+    COMMIT_PATTERN = %r{Merge pull request #(\d) from (.*)}
     def pr_url
-      "#{host}/#{full_repo}/pull/#{pr['number']}" if pr['number']
+      if pr['number']
+        "#{host}/#{full_repo}/pull/#{pr['number']}"
+      elsif md = commit_message.match(COMMIT_PATTERN)
+        # git push commit has commit with PR info
+        # IE: Merge pull request #4 from tongueroo/feature
+        number = md[1]
+        org_branch = md[2]
+        org = org_branch.split('/').first
+        repo = ENV['GITHUB_REPOSITORY'].split('/').last # IE: tongueroo/infra-ci
+        "#{host}/#{org}/#{repo}/pull/#{number}"
+      end
+    end
+
+    def pr_number
+      if pr['number']
+        pr['number']
+      elsif md = commit_message.match(COMMIT_PATTERN)
+        md[1] # number
+      end
     end
 
     def build_url
@@ -46,6 +65,7 @@ module TerraspaceCiGithub
     rescue Octokit::Unauthorized => e
       puts "WARN: #{e.message}. Error getting commit message. Please double check your github token"
     end
+    memoize :commit_message
 
     def full_repo
       ENV['GITHUB_REPOSITORY']
