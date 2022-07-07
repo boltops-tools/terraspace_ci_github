@@ -1,6 +1,6 @@
 # terraspace_ci_github
 
-[![Gem Version](https://badge.fury.io/rb/terraspace.png)](http://badge.fury.io/rb/terraspace)
+[![Gem Version](https://badge.fury.io/rb/terraspace_ci_github.png)](http://badge.fury.io/rb/terraspace_ci_github)
 
 [![BoltOps Badge](https://img.boltops.com/boltops/badges/boltops-badge.png)](https://www.boltops.com)
 
