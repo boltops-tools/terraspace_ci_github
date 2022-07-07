@@ -10,6 +10,7 @@ module TerraspaceCiGithub
         # urls
         pr_url: pr_url,
         build_url: build_url,
+        branch_url: branch_url,
         # additional properties
         build_type: build_type,   # required IE: pull_request or push
         pr_number: pr_number,  # set when build_type=pull_request
@@ -23,6 +24,10 @@ module TerraspaceCiGithub
 
     def host
       ENV['GITHUB_SERVER_URL'] || 'https://github.com'
+    end
+
+    def branch_url
+      "#{host}/#{full_repo}/tree/#{branch_name}" if branch_name
     end
 
     COMMIT_PATTERN = %r{Merge pull request #(\d) from (.*)}
