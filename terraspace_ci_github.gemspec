@@ -31,5 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "faraday-retry"
   spec.add_dependency "memoist"
   spec.add_dependency "octokit"
+  spec.add_dependency "terraspace_vcs_github"
   spec.add_dependency "zeitwerk"
 end
