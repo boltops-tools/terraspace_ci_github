@@ -11,7 +11,7 @@ jobs:
 
     env:
 <%= plugin_env_vars(indent: 6) -%>
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_TOKEN: ${{ github.token }}
       TS_ENV: dev
       TS_TOKEN: ${{ secrets.TS_TOKEN }}
 
