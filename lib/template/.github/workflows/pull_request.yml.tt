@@ -16,6 +16,6 @@ jobs:
     steps:
 <%= partial "init_steps.yml" -%>
 
-    - name: Terraspace Command
+    - name: Run Terraspace
       run: |
         terraspace plan demo
