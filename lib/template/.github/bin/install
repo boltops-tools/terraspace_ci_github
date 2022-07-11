@@ -11,5 +11,5 @@ bundle install
 bundle exec terraspace new shim
 terraspace --version
 
-# install infracost https://www.infracost.io/docs/
+# install infracost
 curl -fsSL https://raw.githubusercontent.com/infracost/infracost/master/scripts/install.sh | sh
