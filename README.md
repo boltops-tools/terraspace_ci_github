@@ -14,7 +14,7 @@ Add gem to your Terraspace project
 
 Gemfile
 
-    gem terraspace_ci_github
+    gem "terraspace_ci_github"
 
 Then to install run
 
